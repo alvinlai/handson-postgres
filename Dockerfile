@@ -13,6 +13,15 @@ RUN add-apt-repository ppa:pitti/postgresql
 RUN apt-get -y update
 
 ENV PG_VERSION 9.2
+ENV LOCALE en_US
+ENV LANGUAGE en_US.UTF-8
+ENV LANG en_US.UTF-8
+ENV LC_ALL en_US.UTF-8
+
+# Locales
+RUN apt-get -y install language-pack-en
+RUN locale-gen en_US.UTF-8
+RUN dpkg-reconfigure locales
 
 RUN apt-get -y install postgresql-$PG_VERSION postgresql-client-$PG_VERSION postgresql-contrib-$PG_VERSION
 
