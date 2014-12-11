@@ -2,17 +2,10 @@ FROM ubuntu
 MAINTAINER Alvin Lai <al@alvinlai.com>
 
 # Basics
-RUN echo "deb http://archive.ubuntu.com/ubuntu precise main universe" > /etc/apt/sources.list
-RUN apt-get update
+RUN apt-get -y update
 RUN apt-get -y upgrade
 
-RUN apt-get -y install python-software-properties
-RUN apt-get -y install software-properties-common
-
-RUN add-apt-repository ppa:pitti/postgresql
-RUN apt-get -y update
-
-ENV PG_VERSION 9.2
+ENV PG_VERSION 9.3
 ENV LOCALE     en_US
 ENV LANGUAGE   en_US.UTF-8
 ENV LANG       en_US.UTF-8
@@ -23,7 +16,8 @@ RUN apt-get -y install language-pack-en
 RUN locale-gen en_US.UTF-8
 RUN dpkg-reconfigure locales
 
-RUN apt-get -y install postgresql-$PG_VERSION postgresql-client-$PG_VERSION postgresql-contrib-$PG_VERSION
+# RUN apt-get -y install postgresql-$PG_VERSION postgresql-client-$PG_VERSION postgresql-contrib-$PG_VERSION
+RUN apt-get -y install postgresql postgresql-contrib
 
 # Important! trust means that users with no password can connect.
 # On a production environment, you can either set a password for the user or
